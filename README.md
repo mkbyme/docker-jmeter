@@ -5,7 +5,7 @@ Copy from https://github.com/justb4/docker-jmeter
 
 Docker image for [Apache JMeter](http://jmeter.apache.org).
 This Docker image can be run as the ``jmeter`` command. 
-Find Images of this repo on [Docker Hub](https://hub.docker.com/r/justb4/jmeter).
+Find Images of this repo on [Docker Hub](https://hub.docker.com/r/mkbyme/jmeter).
 Starting version 5.4 Docker builds/pushes 
 are [executed via GitHub Workflows](.github/workflows/docker.yml).
 
@@ -25,14 +25,14 @@ patch this problem.
 
 https://jmeter.apache.org/changes.html#Non-functional%20changes
 
-The update to 5.4.2 includes the updated Apache log4j2 to 2.16.0 (from 2.13.3), thanks for PR #51!
+The update to 5.4.3 includes the updated Apache log4j2 to 2.16.0 (from 2.13.3), thanks for PR #51!
 
 ## Building
 
 With the script [build.sh](build.sh) the Docker image can be build
 from the [Dockerfile](Dockerfile) but this is not really necessary as
 you may use your own ``docker build`` commandline. Or better: use one
-of the pre-built Images from [Docker Hub](https://hub.docker.com/r/justb4/jmeter).
+of the pre-built Images from [Docker Hub](https://hub.docker.com/r/mkbyme/jmeter).
 
 See end of this doc for more detailed build/run/test instructions (thanks to @wilsonmar!)
 
@@ -41,7 +41,7 @@ See end of this doc for more detailed build/run/test instructions (thanks to @wi
 Build arguments (see [build.sh](build.sh)) with default values if not passed to build:
 
 - **JMETER_VERSION** - JMeter version, default ``5.4``. Use as env variable to build with another version: `export JMETER_VERSION=5.4`
-- **IMAGE_TIMEZONE** - timezone of Docker image, default ``"Europe/Amsterdam"``. Use as env variable to build with another timezone: `export IMAGE_TIMEZONE="Europe/Berlin"`
+- **IMAGE_TIMEZONE** - timezone of Docker image, default ``"Asia/Ho_Chi_Minh"``. Use as env variable to build with another timezone: `export IMAGE_TIMEZONE="Europe/Berlin"`
 
 ## Running
 
@@ -78,7 +78,7 @@ Contribution by @wilsonmar
 1. In a Terminal/Command session, install Git, navigate/make a folder, then:
 
    ```
-   git clone https://github.com/justb4/docker-jmeter.git
+   git clone https://github.com/mkbyme/docker-jmeter.git
    cd docker-jmeter
    ```
 
@@ -96,7 +96,7 @@ Contribution by @wilsonmar
 
    The last line in the response should be:
    
-   <tt>Successfully tagged justb4/jmeter:5.4</tt>
+   <tt>Successfully tagged mkbyme/jmeter:5.4</tt>
 
 1. Run the test script:
 
