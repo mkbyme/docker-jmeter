@@ -6,7 +6,7 @@ FROM alpine:3.12
 LABEL mkbyme <mkbyme@gmail.com>
 
 ARG JMETER_VERSION="5.4.3"
-ENV JMETER_HOME /opt/apache-jmeter-latest
+ENV JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}
 ENV	JMETER_BIN	${JMETER_HOME}/bin
 ENV	JMETER_DOWNLOAD_URL  https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz
 
@@ -25,7 +25,6 @@ RUN    apk update \
 	&& curl -L --silent ${JMETER_DOWNLOAD_URL} >  /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz  \
 	&& mkdir -p /opt  \
 	&& tar -xzf /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz -C /opt  \
-	&& mv /opt/apache-jmeter-${JMETER_VERSION} ${JMETER_HOME} \
 	&& rm -rf /tmp/dependencies
 # Set global PATH such that "jmeter" command is found
 ENV PATH $PATH:$JMETER_BIN

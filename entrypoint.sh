@@ -5,12 +5,37 @@
 # This script expects the standdard JMeter command parameters.
 #
 
-# Install jmeter plugins available on /plugins volume
-if [ -d /plugins ]
+echo "---------------------------------------------------------"
+echo "--- PREPARE MOUNT CONFIG (Plugins, Certs, Config      ---"
+echo "---------------------------------------------------------"
+if [ -d /plugins ] && [ -n "$(ls -A /plugins)" ]
 then
+    echo "Copied plugin from plugins to $JMETER_HOME/lib/ext"
     for plugin in /plugins/*.jar; do
-        cp $plugin $(pwd)/lib/ext
+        cp $plugin $JMETER_HOME/lib/ext
     done;
+else
+    echo "No plugin or empty at folder '/plugins' to install"
+fi
+
+# Install misa sefl-cert.crt available on /certs volume
+if [ -d /certs ] && [ -n "$(ls -A /certs)" ]
+then
+    echo "Trusted cert *.crt from /certs"
+    mkdir /usr/local/share/ca-certificates/ -p
+    cp /certs/*.crt /usr/local/share/ca-certificates/
+    update-ca-certificates
+else
+    echo "No cert or folder empty at folder '/certs' to trust"
+fi
+
+# Copy jmeter user.properties config  available on /home/jmeterconfig volume
+if [ -d /home/jmeterconfig ] && [ -n "$(ls -A /home/jmeterconfig)" ]
+then
+    echo "Copied jmeter config from /home/jmeterconfig to $JMETER_BIN"
+    cp /home/jmeterconfig/*.properties $JMETER_BIN
+else
+    echo "No config or empty at folder '/home/jmeterconfig' to config jmeter at $JMETER_BIN"
 fi
 
 # Execute JMeter command
