@@ -38,6 +38,10 @@ else
     echo "No config or empty at folder '/home/jmeterconfig' to config jmeter at $JMETER_BIN"
 fi
 
+echo "---------------------------------------------------------"
+echo "--- PREPARE MOUNT CONFIG (Plugins, Certs, Config) END ---"
+echo "---------------------------------------------------------"
+
 # Execute JMeter command
 set -e
 freeMem=`awk '/MemFree/ { print int($2/1024) }' /proc/meminfo`
