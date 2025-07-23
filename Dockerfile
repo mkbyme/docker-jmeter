@@ -24,12 +24,20 @@ RUN apk add --no-cache \
         curl \
         unzip \
         bash \
+        sudo \
         nss && \
     update-ca-certificates
+
+# Tạo nhóm và user ubuntu với UID và GID 1000
+RUN addgroup -g 1000 ubuntu && \
+    adduser -u 1000 -G ubuntu -s /bin/bash -D ubuntu && \
+    echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+# Chuyển sang user ubuntu để chạy
+USER ubuntu
 # Copy JMeter đã giải nén từ stage downloader
-COPY --from=downloader /opt/apache-jmeter-${JMETER_VERSION} /opt/apache-jmeter-${JMETER_VERSION}
+COPY --from=downloader --chown=1000:1000 /opt/apache-jmeter-${JMETER_VERSION} /opt/apache-jmeter-${JMETER_VERSION}
 ENV PATH=$PATH:$JMETER_BIN
-COPY entrypoint.sh /
-RUN chmod +x /entrypoint.sh
+COPY --chown=1000:1000 entrypoint.sh /
+RUN sudo chmod +x /entrypoint.sh
 WORKDIR ${JMETER_HOME}
 ENTRYPOINT ["/entrypoint.sh"]
